@@ -106,9 +106,70 @@
                                 class="color-picker"
                                 value="#000000" />
                         </div>
-                        
+
+                        <div class="font-size-wrapper">
+                            <span class="font-size-label">Preview</span>
+                            <select class="font-size-select" id="previewSizeSelect">
+                                <option value="36">Small</option>
+                                <option value="52" selected>Medium</option>
+                                <option value="68">Large</option>
+                                <option value="86">X-Large</option>
+                            </select>
+                        </div>
+
+                        <button id="gridToggle" class="tool-button active">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path 
+                                    d="M1 1H5V5H1V1ZM9 1H13V5H9V1ZM1 9H5V13H1V9ZM9 9H13V13H9V9Z"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Grid
+                        </button>
+
+                        <button id="listToggle" class="tool-button">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path
+                                    d="M1 3H13M1 7H13M1 11H13"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            List
+                        </button>
+
+                        <button id="clearBtn" class="tool-button">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path 
+                                    d="M2 2L12 12M12 2L2 12"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Clear
+                        </button>
                     </div>
                 </div>
+
+                <main id="signatureGrid" class="grid-layout"></main>
+            </div>
+        </div>
+
+        <div id="pagePDF" class="page">
+            <div class="pdf-page-wrapper">
+                <div class="page-header" style="margin-bottom: 32px;">
+                    <h1>Sign a PDF Document</h1>
+                    <p>
+                        Upload your PDF , place your signature anywhere, and export the 
+                        signed document
+                    </p>
+                </div>
+
+                
             </div>
         </div>
     </body>

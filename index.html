@@ -51,7 +51,65 @@
                     </svg>
                     Generate Signature
                 </button>
+                <button class="nav-tab" id="tabPdf" onclick="swicthTab('pdf')">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect 
+                          x="2"
+                          y="1"
+                          width="8"
+                          height="12"
+                          rx="1.5"
+                          stroke="currentColor"
+                          stroke-width="1.5" />
+                        <path 
+                          d="M10 1H11.5C11.776 1 12 1.224 12 1.5V12.5C12 12.776 11.776 13 11.5 13H10" 
+                         
+                          stroke="currentColor"
+                          stroke-width="1.5" />
+                        <path 
+                          d="M4 5H8M4 7.5H8M4 10H6"
+                          stroke="currentColor"
+                          stroke-width="1.3"
+                          stroke-linecap="round" /> 
+                    </svg>
+                    Sign a PDF
+                </button>
             </div>
         </nav>
+
+        <div id="pageGenerate" class="page active">
+            <div class="page-inner">
+                <div class="page-header">
+                    <h1>Type your signature</h1>
+                    <p>
+                        Choose from various high-quality classic typography alternatives
+                    </p>
+                </div>
+
+                <div class="controls-wrapper">
+                    <div class="input-container">
+                        <input
+                            type="text"
+                            id="signatureInput"
+                            class="signature-input"
+                            value="Type Here"
+                            autocomplete="off"
+                            maxlength="60" />
+                    </div>
+                    <div class="toolbar">
+                        <div class="color-picker-wrapper" id="colorPickerBtn">
+                            <span class="color-preview" id="colorPreview"></span>
+                            <span class="color-hex" id="colorHex">#000000</span>
+                            <input
+                                type="color"
+                                id="signatureColor"
+                                class="color-picker"
+                                value="#000000" />
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

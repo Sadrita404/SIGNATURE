@@ -260,6 +260,78 @@
                                 </svg>
                                 <p>Upload a PDF to get started</p>
                             </div>
+                            <div 
+                                class="pdf-canvas-stage"
+                                id="pdfCanvasStage"
+                                style="display: none;">
+                                <canvas id="pdfCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="pdf-sidebar" id="pdfSidebar">
+                        <div class="sidebar-section">
+                            <div class="sidebar-section-header">
+                                <span class="sidebar-section-title">Signature</span>
+                            </div>
+                            <div class="sidebar-section-body">
+                                <input
+                                    type="text"
+                                    id="pdfSigText"
+                                    class="pdf-sig-input"
+                                    placeholder="Enteryour name..."
+                                    maxlength="60" />
+                                <div class="pdf-color-row">
+                                    <div
+                                        class="pdf-color-swatch active"
+                                        style="background: #000000;"
+                                        data-color="#000000"></div>
+                                    <div 
+                                        class="pdf-color-swatch"
+                                        style="background: #1e40af"
+                                        data-color="#1e40af"></div>
+                                    <div
+                                        class="pdf-color-swatch"
+                                        style="background: #dc2626"
+                                        data-color="#dc2626"></div>
+                                    <div
+                                        class="pdf-color-swatch"
+                                        style="background: #047857"
+                                        data-color="#047857"></div>
+                                    <div
+                                        class="pdf-color-swatch"
+                                        style="background: #7c3aed"
+                                        data-color="#7c3aed"></div>
+                                    <div class="pdf-custom-color" title="Custom color">
+                                        <input type="color" id="pdfCustomColor" value="#000000" />
+                                        <svg 
+                                            width="28"
+                                            height="28"
+                                            viewBox="0 0 28 28"
+                                            style="
+                                                position: absolute;
+                                                inset: 0;
+                                                pointer-events: none;
+                                                padding: 4px;
+                                                "
+                                            fill="none">
+                                            <circle
+                                                cx="14"
+                                                cy="14"
+                                                r="6"
+                                                stroke="#94a3b8"
+                                                stroke-width="1.5" />
+                                            <path 
+                                                d="M14 8V6M14 20V22M8 14H6M20 14H22"
+                                                stroke="#94a3b8"
+                                                stroke-width="1.5"
+                                                stroke-linecap="round" />    
+                                        </svg>    
+                                    </div>                    
+                                </div>
+                                <div class="sig-picker-list" id="pdfSigPickerList"></div>    
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -202,7 +202,67 @@
                     <div class="upload-cts">Choose File</div>
                 </div>
 
-
+                <div id="pdfEditorLayout" class="pdf-editor-layout">
+                    <div class="pdf-canvas-wrapper">
+                        <div class="pdf-canvas-toolbar">
+                            <button
+                                class="page-nav-btn"
+                                id="prevPageBtn"
+                                title="Previous page">
+                                <svg width="12" height="12" viewBox="0 0 12 12">
+                                    <path 
+                                        d="M8 2L4 6L8 10"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                            <span class="page-indicator" id="pageIndicator">Page 1 / 1</span>
+                            <button class="page-nav-btn" id="nextPageBtn" title="Next Page">
+                                <svg width="12" height="12" viewBox="0 0 12 12">
+                                    <path
+                                        d="M4 2L8 6L4 10"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                            <span style="margin-left: 8px;">Zoom</span>
+                            <button class="zoom-btn" id="zoomOutBtn">-</button>
+                            <span class="page-indicator" id="zoomIndicator">100%</span>
+                            <button class="zoom-btn" id="zoomInBtn">+</button>
+                            <span style="margin-left: auto; font-size: 12px; color: #94a3b8"
+                                >Click on the PDF to place a signature</span
+                                >
+                        </div>
+                        <div class="pdf-canvas-containerr" id="pdfCanvasContainer">
+                            <div class="no-pdf-placeholder" id="noPdfPlaceholder">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                    <rect
+                                        x="8"
+                                        y="4"
+                                        width="24"
+                                        height="34"
+                                        rx="3"
+                                        stroke="currentColor"
+                                        stroke-width="2" />
+                                    <path
+                                        d="M32 4H36C37.1 4 38 4.9 38 6V42C38 43.1 37.1 44 36 44H32"
+                                        stroke="currentColor"
+                                        stroke-width="2" />    
+                                    <path 
+                                        d="M14 16H26M14 22H26M14 28H20"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round" />    
+                                </svg>
+                                <p>Upload a PDF to get started</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

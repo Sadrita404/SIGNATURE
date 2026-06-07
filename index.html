@@ -386,10 +386,71 @@
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <div class="sidebar-section">
+                            <div class="sidebar-section-header">
+                                <span class="sidebar-section-header">Placed Signatures</span>
+                                <span class="sig-count-badge" id="sigCountBadge">0</span>
+                            </div>
+                            <div
+                                class="sidebar-section-body"
+                                style="display: flex; flex-direction: column; gap: 10px">
+                                <div class="placement-hint" id="noSigsHint">
+                                    No Signature placed yet.<br />Click on the PDF to add one.
+                                </div>
+                                <button class="export-pdf-btn" id="exportPdfBtn">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path
+                                            d="M8 2V10M8 10L5 7M8 10L11 7"
+                                            stroke="currentColor"
+                                            stroke-width="1.6"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M2 13H14"
+                                            stroke="currentColor"
+                                            stroke-width="1.6"
+                                            stroke-linecap="round" />   
+                                    </svg>
+                                    Export Signed PDF
+                                </button>
+                                <button class="clear-siga-btn" id="clearSigsBtn">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                        <path 
+                                            d="M2 2L12 12M12 2L2 12"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    Clear All Signatures
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal">
+                <div class="modal-title">Choose a signature style</div>
+                <div class="modal-sub" id="modalSub">
+                    Select a font style to use for your signature on the PDF.
+                </div>
+                <div class="modal-sig-list" id="modalSigList"></div>
+                <div class="modal-btn-row">
+                    <button class="modal-cancel-btn" onclick="closeModal()">
+                        Cancel
+                    </button>
+                    <button class="modal-use-btn" id="modalUseBtn">
+                        Use this style on PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
+
+        
     </body>
 </html>

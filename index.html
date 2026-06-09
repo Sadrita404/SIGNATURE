@@ -573,7 +573,61 @@
                     chosenColor
                 );
             });
-        })
+
+            const useSigBtn = document.createElement("button");
+            useSigBtn.className = "use-sig-btn";
+            useSigBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="8" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 1H11.5c11.776 1 12 1.224 12 1.5V12.5C12 12.776 13 11.5 13H10" stroke="currentColor" stroke-width="1.5"/></svg> Use on PDF`;
+            useSigBtn.addEventListener("click", () => {
+                openUseSigModal(font, textValue || "Type Here", chosenColor);
+            });
+
+            actions.appendChild(downloadBtn);
+            actions.appendChild(useSigBtn);
+
+            card.appendChild(cardHeader);
+            card.appendChild(previewBox);
+            card.appendChild(actions);
+
+            signatureGrid.appendChild(card);
+        });
+
+        window.scrollTo(0, scrollPos)
+      }
+
+      function downloadSignaturePng(text, fontFamily, color) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 1200;
+        canvas.height = 500;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        let fontSize = 150;
+        ctx.fillStyle = color;
+
+        document.fonts.ready.then(() => {
+            ctx.font = `${fontSize}px ${fontFamily}`;
+            let textWidth = ctx.measureText(text).width;
+            while (textWidth > canvas.width - 120 && fontSize > 24) {
+                fontSize -= 4;
+                ctx.font = `${fontSize}px ${fontFamily}`;
+                textWidth = ctx.measureText(text).width;
+            }
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+            const imageURI = canvas.toDataURL("image/png");
+            const cleanedText = text
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, "_")
+                .replace(/__+/g, "_");
+            const finalBaseName = cleanedText || "signature";
+            const downloadLink = document.createElement("a");
+            downloadLink.href = imageURI;
+            downloadLink.download = `${finalBaseName}_digital_sig.png`;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink)    
+        });
       }
     </script>
   </body>

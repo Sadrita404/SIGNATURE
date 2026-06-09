@@ -1,527 +1,580 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width", initial-scale="1.0" />
-        <title>Signature Generator Pro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=Bad+Script&family=Bilbo+Swash+Caps&family=Caveat&family=Clicker+Script&family=Covered+By+Your+Grace&family=Dancing+Script&family=Gochi+Hand&family=Great+Vibes&family=Handlee&family=Just+Another+Hand&family=League+Script&family=Marck+Script&family=Meddon&family=Monsieur+La+Doulaise&family=Mr+De+Haviland&family=Mrs+Saint+Delafield&family=Parisienne&family=Pinyon+Script&family=Quintessential&family=Reenie+Beanie&family=Sacramento&family=Seaweed+Script&family=Yellowtail&display=swap"
-            rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>    
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-        <style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0" />
+    <title>Signature Generator Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=Bad+Script&family=Bilbo+Swash+Caps&family=Caveat&family=Clicker+Script&family=Covered+By+Your+Grace&family=Dancing+Script&family=Gochi+Hand&family=Great+Vibes&family=Handlee&family=Just+Another+Hand&family=League+Script&family=Marck+Script&family=Meddon&family=Monsieur+La+Doulaise&family=Mr+De+Haviland&family=Mrs+Saint+Delafield&family=Parisienne&family=Pinyon+Script&family=Quintessential&family=Reenie+Beanie&family=Sacramento&family=Seaweed+Script&family=Yellowtail&display=swap"
+      rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <nav class="app-nav">
+      <div class="nav-logo">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path
+            d="M3 18C7 14 9 8 11 4"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round" />
+          <path
+            d="M11 4C13 8 16 13 19 15"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round" />
+          <path
+            d="M2 20h20"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round" />
+        </svg>
+        <span>Signature Generator Pro</span>
+      </div>
+      <div class="nav-tabs">
+        <button
+          class="nav-tab active"
+          id="tabGenerate"
+          onclick="switchTab('generate')">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path
+              d="M2 11C4 8 5.5 5 7 2M7 2C8.5 5 10 8 12 11M2 13H12"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round" />
+          </svg>
+          Generate Signature
+        </button>
+        <button class="nav-tab" id="tabPdf" onclick="swicthTab('pdf')">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect
+              x="2"
+              y="1"
+              width="8"
+              height="12"
+              rx="1.5"
+              stroke="currentColor"
+              stroke-width="1.5" />
+            <path
+              d="M10 1H11.5C11.776 1 12 1.224 12 1.5V12.5C12 12.776 11.776 13 11.5 13H10"
+              stroke="currentColor"
+              stroke-width="1.5" />
+            <path
+              d="M4 5H8M4 7.5H8M4 10H6"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round" />
+          </svg>
+          Sign a PDF
+        </button>
+      </div>
+    </nav>
 
-        </style>
-    </head>
-    <body>
-        <nav class="app-nav" >
-            <div class="nav-logo">
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                    <path
-                        d="M3 18C7 14 9 8 11 4"
-                        stroke="currentColor"
-                        stroke-width="2.2"
-                        stroke-linecap="round" />
-                    <path 
-                        d="M11 4C13 8 16 13 19 15"
-                        stroke="currentColor"
-                        stroke-width="2.2"
-                        stroke-linecap="round" />
-                    <path 
-                        d="M2 20h20"
-                        stroke="currentColor"
-                        stroke-width="2.2"
-                        stroke-linecap="round" />
+    <div id="pageGenerate" class="page active">
+      <div class="page-inner">
+        <div class="page-header">
+          <h1>Type your signature</h1>
+          <p>
+            Choose from various high-quality classic typography alternatives
+          </p>
+        </div>
+
+        <div class="controls-wrapper">
+          <div class="input-container">
+            <input
+              type="text"
+              id="signatureInput"
+              class="signature-input"
+              value="Type Here"
+              autocomplete="off"
+              maxlength="60" />
+          </div>
+          <div class="toolbar">
+            <div class="color-picker-wrapper" id="colorPickerBtn">
+              <span class="color-preview" id="colorPreview"></span>
+              <span class="color-hex" id="colorHex">#000000</span>
+              <input
+                type="color"
+                id="signatureColor"
+                class="color-picker"
+                value="#000000" />
+            </div>
+
+            <div class="font-size-wrapper">
+              <span class="font-size-label">Preview</span>
+              <select class="font-size-select" id="previewSizeSelect">
+                <option value="36">Small</option>
+                <option value="52" selected>Medium</option>
+                <option value="68">Large</option>
+                <option value="86">X-Large</option>
+              </select>
+            </div>
+
+            <button id="gridToggle" class="tool-button active">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M1 1H5V5H1V1ZM9 1H13V5H9V1ZM1 9H5V13H1V9ZM9 9H13V13H9V9Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Grid
+            </button>
+
+            <button id="listToggle" class="tool-button">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M1 3H13M1 7H13M1 11H13"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              List
+            </button>
+
+            <button id="clearBtn" class="tool-button">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M2 2L12 12M12 2L2 12"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <main id="signatureGrid" class="grid-layout"></main>
+      </div>
+    </div>
+
+    <div id="pagePDF" class="page">
+      <div class="pdf-page-wrapper">
+        <div class="page-header" style="margin-bottom: 32px">
+          <h1>Sign a PDF Document</h1>
+          <p>
+            Upload your PDF , place your signature anywhere, and export the
+            signed document
+          </p>
+        </div>
+
+        <div
+          id="pdfUploadZone"
+          class="pdf-upload-zone"
+          style="margin-bottom: 32px">
+          <div class="uploading-overlay" id="uploadingOverlay">
+            <div class="spinner"></div>
+            <span style="font-size: 15; font-weight: 600; color: #475569"
+              >Loading PDF....</span
+            >
+          </div>
+          <input type="file" id="pdfFileInput" accept=".pdf" title="" />
+          <div class="upload-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path
+                d="M14 4V18M14 4L9 9M14 4L19 9"
+                stroke="#0091ff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path
+                d="M4 22H24"
+                stroke="#0091ff"
+                stroke-width="2"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="upload-title">Upload PDF</div>
+          <div class="upload-sub">
+            Drag and drop your PDF file here, or click to browse
+          </div>
+          <div class="upload-cts">Choose File</div>
+        </div>
+
+        <div id="pdfEditorLayout" class="pdf-editor-layout">
+          <div class="pdf-canvas-wrapper">
+            <div class="pdf-canvas-toolbar">
+              <button
+                class="page-nav-btn"
+                id="prevPageBtn"
+                title="Previous page">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                  <path
+                    d="M8 2L4 6L8 10"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
-                <span>Signature Generator Pro</span>
+              </button>
+              <span class="page-indicator" id="pageIndicator">Page 1 / 1</span>
+              <button class="page-nav-btn" id="nextPageBtn" title="Next Page">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                  <path
+                    d="M4 2L8 6L4 10"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </button>
+              <span style="margin-left: 8px">Zoom</span>
+              <button class="zoom-btn" id="zoomOutBtn">-</button>
+              <span class="page-indicator" id="zoomIndicator">100%</span>
+              <button class="zoom-btn" id="zoomInBtn">+</button>
+              <span style="margin-left: auto; font-size: 12px; color: #94a3b8"
+                >Click on the PDF to place a signature</span
+              >
             </div>
-            <div class="nav-tabs">
-                <button
-                    class="nav-tab active"
-                    id="tabGenerate"
-                    onclick="switchTab('generate')">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path
-                            d="M2 11C4 8 5.5 5 7 2M7 2C8.5 5 10 8 12 11M2 13H12"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-linecap="round" />
+            <div class="pdf-canvas-containerr" id="pdfCanvasContainer">
+              <div class="no-pdf-placeholder" id="noPdfPlaceholder">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <rect
+                    x="8"
+                    y="4"
+                    width="24"
+                    height="34"
+                    rx="3"
+                    stroke="currentColor"
+                    stroke-width="2" />
+                  <path
+                    d="M32 4H36C37.1 4 38 4.9 38 6V42C38 43.1 37.1 44 36 44H32"
+                    stroke="currentColor"
+                    stroke-width="2" />
+                  <path
+                    d="M14 16H26M14 22H26M14 28H20"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round" />
+                </svg>
+                <p>Upload a PDF to get started</p>
+              </div>
+              <div
+                class="pdf-canvas-stage"
+                id="pdfCanvasStage"
+                style="display: none">
+                <canvas id="pdfCanvas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="pdf-sidebar" id="pdfSidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-section-header">
+                <span class="sidebar-section-title">Signature</span>
+              </div>
+              <div class="sidebar-section-body">
+                <input
+                  type="text"
+                  id="pdfSigText"
+                  class="pdf-sig-input"
+                  placeholder="Enteryour name..."
+                  maxlength="60" />
+                <div class="pdf-color-row">
+                  <div
+                    class="pdf-color-swatch active"
+                    style="background: #000000"
+                    data-color="#000000"></div>
+                  <div
+                    class="pdf-color-swatch"
+                    style="background: #1e40af"
+                    data-color="#1e40af"></div>
+                  <div
+                    class="pdf-color-swatch"
+                    style="background: #dc2626"
+                    data-color="#dc2626"></div>
+                  <div
+                    class="pdf-color-swatch"
+                    style="background: #047857"
+                    data-color="#047857"></div>
+                  <div
+                    class="pdf-color-swatch"
+                    style="background: #7c3aed"
+                    data-color="#7c3aed"></div>
+                  <div class="pdf-custom-color" title="Custom color">
+                    <input type="color" id="pdfCustomColor" value="#000000" />
+                    <svg
+                      width="28"
+                      height="28"
+                      viewBox="0 0 28 28"
+                      style="
+                        position: absolute;
+                        inset: 0;
+                        pointer-events: none;
+                        padding: 4px;
+                      "
+                      fill="none">
+                      <circle
+                        cx="14"
+                        cy="14"
+                        r="6"
+                        stroke="#94a3b8"
+                        stroke-width="1.5" />
+                      <path
+                        d="M14 8V6M14 20V22M8 14H6M20 14H22"
+                        stroke="#94a3b8"
+                        stroke-width="1.5"
+                        stroke-linecap="round" />
                     </svg>
-                    Generate Signature
+                  </div>
+                </div>
+                <div class="sig-picker-list" id="pdfSigPickerList"></div>
+              </div>
+            </div>
+
+            <div class="ssidebar-section">
+              <div class="sidebar-section-header">
+                <span class="sidebar-section-title">Size</span>
+              </div>
+              <div class="sidebar-section-body">
+                <div class="pdf-size-row">
+                  <span class="pdf-size-label">Signature size</span>
+                  <input
+                    type="range"
+                    class="pdf-size-slider"
+                    id="pdfSigSize"
+                    min="60"
+                    max="140"
+                    step="4" />
+                  <span class="pdf-size-value" id="pdfSigSizeVal">140px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-section-header">
+                <span class="sidebar-section-title">How to Use</span>
+              </div>
+              <div class="sidebar-section-body">
+                <div class="pdf-instructions">
+                  <div class="instruction-step">
+                    <span class="step-num">1</span>
+                    <span class="step-text"
+                      >Enter your name and pick a style from the list
+                      above</span
+                    >
+                  </div>
+                  <div class="instruction-step">
+                    <span class="step-num">2</span>
+                    <span class="step-text"
+                      >Click anywhere on the PDF to place the signature</span
+                    >
+                  </div>
+                  <div class="instruction-step">
+                    <span class="step-num">3</span>
+                    <span class="step-text"
+                      >Drag to reposition Use the resize handle to scale</span
+                    >
+                  </div>
+                  <div class="instruction-step">
+                    <span class="step-num">4</span>
+                    <span class="step-text"
+                      >Click Export PDF to download your signed document</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-section-header">
+                <span class="sidebar-section-header">Placed Signatures</span>
+                <span class="sig-count-badge" id="sigCountBadge">0</span>
+              </div>
+              <div
+                class="sidebar-section-body"
+                style="display: flex; flex-direction: column; gap: 10px">
+                <div class="placement-hint" id="noSigsHint">
+                  No Signature placed yet.<br />Click on the PDF to add one.
+                </div>
+                <button class="export-pdf-btn" id="exportPdfBtn">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M8 2V10M8 10L5 7M8 10L11 7"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path
+                      d="M2 13H14"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round" />
+                  </svg>
+                  Export Signed PDF
                 </button>
-                <button class="nav-tab" id="tabPdf" onclick="swicthTab('pdf')">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect 
-                          x="2"
-                          y="1"
-                          width="8"
-                          height="12"
-                          rx="1.5"
-                          stroke="currentColor"
-                          stroke-width="1.5" />
-                        <path 
-                          d="M10 1H11.5C11.776 1 12 1.224 12 1.5V12.5C12 12.776 11.776 13 11.5 13H10" 
-                         
-                          stroke="currentColor"
-                          stroke-width="1.5" />
-                        <path 
-                          d="M4 5H8M4 7.5H8M4 10H6"
-                          stroke="currentColor"
-                          stroke-width="1.3"
-                          stroke-linecap="round" /> 
-                    </svg>
-                    Sign a PDF
+                <button class="clear-siga-btn" id="clearSigsBtn">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path
+                      d="M2 2L12 12M12 2L2 12"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round" />
+                  </svg>
+                  Clear All Signatures
                 </button>
+              </div>
             </div>
-        </nav>
-
-        <div id="pageGenerate" class="page active">
-            <div class="page-inner">
-                <div class="page-header">
-                    <h1>Type your signature</h1>
-                    <p>
-                        Choose from various high-quality classic typography alternatives
-                    </p>
-                </div>
-
-                <div class="controls-wrapper">
-                    <div class="input-container">
-                        <input
-                            type="text"
-                            id="signatureInput"
-                            class="signature-input"
-                            value="Type Here"
-                            autocomplete="off"
-                            maxlength="60" />
-                    </div>
-                    <div class="toolbar">
-                        <div class="color-picker-wrapper" id="colorPickerBtn">
-                            <span class="color-preview" id="colorPreview"></span>
-                            <span class="color-hex" id="colorHex">#000000</span>
-                            <input
-                                type="color"
-                                id="signatureColor"
-                                class="color-picker"
-                                value="#000000" />
-                        </div>
-
-                        <div class="font-size-wrapper">
-                            <span class="font-size-label">Preview</span>
-                            <select class="font-size-select" id="previewSizeSelect">
-                                <option value="36">Small</option>
-                                <option value="52" selected>Medium</option>
-                                <option value="68">Large</option>
-                                <option value="86">X-Large</option>
-                            </select>
-                        </div>
-
-                        <button id="gridToggle" class="tool-button active">
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                <path 
-                                    d="M1 1H5V5H1V1ZM9 1H13V5H9V1ZM1 9H5V13H1V9ZM9 9H13V13H9V9Z"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            Grid
-                        </button>
-
-                        <button id="listToggle" class="tool-button">
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                <path
-                                    d="M1 3H13M1 7H13M1 11H13"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            List
-                        </button>
-
-                        <button id="clearBtn" class="tool-button">
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                <path 
-                                    d="M2 2L12 12M12 2L2 12"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            Clear
-                        </button>
-                    </div>
-                </div>
-
-                <main id="signatureGrid" class="grid-layout"></main>
-            </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div id="pagePDF" class="page">
-            <div class="pdf-page-wrapper">
-                <div class="page-header" style="margin-bottom: 32px;">
-                    <h1>Sign a PDF Document</h1>
-                    <p>
-                        Upload your PDF , place your signature anywhere, and export the 
-                        signed document
-                    </p>
-                </div>
-
-                <div
-                    id="pdfUploadZone"
-                    class="pdf-upload-zone"
-                    style="margin-bottom: 32px">
-                    <div class="uploading-overlay" id="uploadingOverlay">
-                        <div class="spinner"></div>
-                        <span style="font-size: 15; font-weight: 600; color: #475569"
-                            >Loading PDF....</span
-                            >        
-                    </div>
-                    <input type="file" id="pdfFileInput" accept=".pdf" title="" />
-                    <div class="upload-icon">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                            <path
-                                d="M14 4V18M14 4L9 9M14 4L19 9"
-                                stroke="#0091ff"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path 
-                                d="M4 22H24"
-                                stroke="#0091ff"
-                                stroke-width="2"
-                                stroke-linecap="round" />    
-                        </svg>
-                    </div>
-                    <div class="upload-title">Upload PDF</div>
-                    <div class="upload-sub">
-                        Drag and drop your PDF file here, or click to browse
-                    </div>
-                    <div class="upload-cts">Choose File</div>
-                </div>
-
-                <div id="pdfEditorLayout" class="pdf-editor-layout">
-                    <div class="pdf-canvas-wrapper">
-                        <div class="pdf-canvas-toolbar">
-                            <button
-                                class="page-nav-btn"
-                                id="prevPageBtn"
-                                title="Previous page">
-                                <svg width="12" height="12" viewBox="0 0 12 12">
-                                    <path 
-                                        d="M8 2L4 6L8 10"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <span class="page-indicator" id="pageIndicator">Page 1 / 1</span>
-                            <button class="page-nav-btn" id="nextPageBtn" title="Next Page">
-                                <svg width="12" height="12" viewBox="0 0 12 12">
-                                    <path
-                                        d="M4 2L8 6L4 10"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <span style="margin-left: 8px;">Zoom</span>
-                            <button class="zoom-btn" id="zoomOutBtn">-</button>
-                            <span class="page-indicator" id="zoomIndicator">100%</span>
-                            <button class="zoom-btn" id="zoomInBtn">+</button>
-                            <span style="margin-left: auto; font-size: 12px; color: #94a3b8"
-                                >Click on the PDF to place a signature</span
-                                >
-                        </div>
-                        <div class="pdf-canvas-containerr" id="pdfCanvasContainer">
-                            <div class="no-pdf-placeholder" id="noPdfPlaceholder">
-                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                                    <rect
-                                        x="8"
-                                        y="4"
-                                        width="24"
-                                        height="34"
-                                        rx="3"
-                                        stroke="currentColor"
-                                        stroke-width="2" />
-                                    <path
-                                        d="M32 4H36C37.1 4 38 4.9 38 6V42C38 43.1 37.1 44 36 44H32"
-                                        stroke="currentColor"
-                                        stroke-width="2" />    
-                                    <path 
-                                        d="M14 16H26M14 22H26M14 28H20"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round" />    
-                                </svg>
-                                <p>Upload a PDF to get started</p>
-                            </div>
-                            <div 
-                                class="pdf-canvas-stage"
-                                id="pdfCanvasStage"
-                                style="display: none;">
-                                <canvas id="pdfCanvas"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="pdf-sidebar" id="pdfSidebar">
-                        <div class="sidebar-section">
-                            <div class="sidebar-section-header">
-                                <span class="sidebar-section-title">Signature</span>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <input
-                                    type="text"
-                                    id="pdfSigText"
-                                    class="pdf-sig-input"
-                                    placeholder="Enteryour name..."
-                                    maxlength="60" />
-                                <div class="pdf-color-row">
-                                    <div
-                                        class="pdf-color-swatch active"
-                                        style="background: #000000;"
-                                        data-color="#000000"></div>
-                                    <div 
-                                        class="pdf-color-swatch"
-                                        style="background: #1e40af"
-                                        data-color="#1e40af"></div>
-                                    <div
-                                        class="pdf-color-swatch"
-                                        style="background: #dc2626"
-                                        data-color="#dc2626"></div>
-                                    <div
-                                        class="pdf-color-swatch"
-                                        style="background: #047857"
-                                        data-color="#047857"></div>
-                                    <div
-                                        class="pdf-color-swatch"
-                                        style="background: #7c3aed"
-                                        data-color="#7c3aed"></div>
-                                    <div class="pdf-custom-color" title="Custom color">
-                                        <input type="color" id="pdfCustomColor" value="#000000" />
-                                        <svg 
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 28 28"
-                                            style="
-                                                position: absolute;
-                                                inset: 0;
-                                                pointer-events: none;
-                                                padding: 4px;
-                                                "
-                                            fill="none">
-                                            <circle
-                                                cx="14"
-                                                cy="14"
-                                                r="6"
-                                                stroke="#94a3b8"
-                                                stroke-width="1.5" />
-                                            <path 
-                                                d="M14 8V6M14 20V22M8 14H6M20 14H22"
-                                                stroke="#94a3b8"
-                                                stroke-width="1.5"
-                                                stroke-linecap="round" />    
-                                        </svg>    
-                                    </div>                    
-                                </div>
-                                <div class="sig-picker-list" id="pdfSigPickerList"></div>    
-                            </div>
-                        </div>
-
-                        <div class="ssidebar-section">
-                            <div class="sidebar-section-header">
-                                <span class="sidebar-section-title">Size</span>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <div class="pdf-size-row">
-                                    <span class="pdf-size-label">Signature size</span>
-                                    <input
-                                        type="range"
-                                        class="pdf-size-slider"
-                                        id="pdfSigSize"
-                                        min="60"
-                                        max="140"
-                                        step="4" />
-                                    <span class="pdf-size-value" id="pdfSigSizeVal">140px</span>    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="sidebar-section">
-                            <div class="sidebar-section-header">
-                                <span class="sidebar-section-title">How to Use</span>
-                            </div>
-                            <div class="sidebar-section-body">
-                                <div class="pdf-instructions">
-                                    <div class="instruction-step">
-                                        <span class="step-num">1</span>
-                                        <span class="step-text"
-                                        >Enter your name and pick a style from the list 
-                                    above</span>
-                                    </div>
-                                    <div class="instruction-step">
-                                        <span class="step-num">2</span>
-                                        <span class="step-text"
-                                        >Click anywhere on the PDF to place the signature</span
-                                        >
-                                    </div>
-                                    <div class="instruction-step">
-                                        <span class="step-num">3</span>
-                                        <span class="step-text"
-                                        >Drag to reposition Use the resize handle to scale</span
-                                        >
-                                    </div>
-                                    <div class="instruction-step">
-                                        <span class="step-num">4</span>
-                                        <span class="step-text"
-                                        >Click Export PDF to download your signed document</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="sidebar-section">
-                            <div class="sidebar-section-header">
-                                <span class="sidebar-section-header">Placed Signatures</span>
-                                <span class="sig-count-badge" id="sigCountBadge">0</span>
-                            </div>
-                            <div
-                                class="sidebar-section-body"
-                                style="display: flex; flex-direction: column; gap: 10px">
-                                <div class="placement-hint" id="noSigsHint">
-                                    No Signature placed yet.<br />Click on the PDF to add one.
-                                </div>
-                                <button class="export-pdf-btn" id="exportPdfBtn">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M8 2V10M8 10L5 7M8 10L11 7"
-                                            stroke="currentColor"
-                                            stroke-width="1.6"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path
-                                            d="M2 13H14"
-                                            stroke="currentColor"
-                                            stroke-width="1.6"
-                                            stroke-linecap="round" />   
-                                    </svg>
-                                    Export Signed PDF
-                                </button>
-                                <button class="clear-siga-btn" id="clearSigsBtn">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                        <path 
-                                            d="M2 2L12 12M12 2L2 12"
-                                            stroke="currentColor"
-                                            stroke-width="1.5"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                    Clear All Signatures
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <div class="modal-title">Choose a signature style</div>
+        <div class="modal-sub" id="modalSub">
+          Select a font style to use for your signature on the PDF.
         </div>
-
-        <div class="modal-overlay" id="modalOverlay">
-            <div class="modal">
-                <div class="modal-title">Choose a signature style</div>
-                <div class="modal-sub" id="modalSub">
-                    Select a font style to use for your signature on the PDF.
-                </div>
-                <div class="modal-sig-list" id="modalSigList"></div>
-                <div class="modal-btn-row">
-                    <button class="modal-cancel-btn" onclick="closeModal()">
-                        Cancel
-                    </button>
-                    <button class="modal-use-btn" id="modalUseBtn">
-                        Use this style on PDF
-                    </button>
-                </div>
-            </div>
+        <div class="modal-sig-list" id="modalSigList"></div>
+        <div class="modal-btn-row">
+          <button class="modal-cancel-btn" onclick="closeModal()">
+            Cancel
+          </button>
+          <button class="modal-use-btn" id="modalUseBtn">
+            Use this style on PDF
+          </button>
         </div>
+      </div>
+    </div>
 
-        <div class="toast" id="toast"></div>
+    <div class="toast" id="toast"></div>
 
-        <script>
-            pdfjsLib.GlobalWorkerOptions.workerSrc =
-                "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
 
-            const signatureFonts = [
-            {
-                id: "bad-script",
-                name: "Bad Script",
-                family: "'Bad Script', cursive"
-            },
-            {
-                id: "bilbo",
-                name: "Bilbo Swash Caps",
-                family: "'Bilbo Swash Caps', cursive",
-            },
-            { id: "caveat", name: "Caveat", family: "'Caveat', cursive" },
-            {
-                id: "covered",
-                name: "Covered By Grace",
-                family: "'Covered By Your Grace', cursive",
-            },
-            {
-                id: "dancing",
-                name: "Dancing Script",
-                family: "'Dancing Script', cursive",
-            },
-            { id: "gochi", name: "Gochi Hand", family: "'Gochi Hand', cursive" },
-            {
-                id: "great-vibes",
-                name: "Great Vibes",
-                family: "'Great Vibes', cursive",
-            },
-            { id: "handlee", name: "Handlee", family: "'Handlee', cursive" },
-            {
-                id: "just-another",
-                name: "Just Another Hand",
-                family: "'Just Another Hand', cursive",
-            },
-            {
-                id: "sacramento",
-                name: "Sacramento",
-                family: "'Sacramento', cursive",
-            },
-            {
-                id: "alex-brush",
-                name: "Alex Brush",
-                family: "'Alex Brush', cursive",
-            },
-            { id: "allura", name: "Allura", family:"'Allura', cursive"},
-            {
-                id: "parisienne",
-                name: "Parisienne",
-                family: "'Parisienne', cursive",
-            },
-            {
-                id: "pinyon",
-                name: "Pinyon Script",
-                family: "'Pinyon Script', cursive",
-            },
-            {
-                id: "marck",
-                name: "Marck Script",
-                family: "'March Script', cursive",
-            },
-            {
-                id: "yellowtail",
-                name: "Yellowtail",
-                family: "'Yellowtail', cursive",
-            },
-            ];
-            
-        </script>
-    </body>
+      const signatureFonts = [
+        {
+          id: "bad-script",
+          name: "Bad Script",
+          family: "'Bad Script', cursive",
+        },
+        {
+          id: "bilbo",
+          name: "Bilbo Swash Caps",
+          family: "'Bilbo Swash Caps', cursive",
+        },
+        { id: "caveat", name: "Caveat", family: "'Caveat', cursive" },
+        {
+          id: "covered",
+          name: "Covered By Grace",
+          family: "'Covered By Your Grace', cursive",
+        },
+        {
+          id: "dancing",
+          name: "Dancing Script",
+          family: "'Dancing Script', cursive",
+        },
+        { id: "gochi", name: "Gochi Hand", family: "'Gochi Hand', cursive" },
+        {
+          id: "great-vibes",
+          name: "Great Vibes",
+          family: "'Great Vibes', cursive",
+        },
+        { id: "handlee", name: "Handlee", family: "'Handlee', cursive" },
+        {
+          id: "just-another",
+          name: "Just Another Hand",
+          family: "'Just Another Hand', cursive",
+        },
+        {
+          id: "sacramento",
+          name: "Sacramento",
+          family: "'Sacramento', cursive",
+        },
+        {
+          id: "alex-brush",
+          name: "Alex Brush",
+          family: "'Alex Brush', cursive",
+        },
+        { id: "allura", name: "Allura", family: "'Allura', cursive" },
+        {
+          id: "parisienne",
+          name: "Parisienne",
+          family: "'Parisienne', cursive",
+        },
+        {
+          id: "pinyon",
+          name: "Pinyon Script",
+          family: "'Pinyon Script', cursive",
+        },
+        {
+          id: "marck",
+          name: "Marck Script",
+          family: "'March Script', cursive",
+        },
+        {
+          id: "yellowtail",
+          name: "Yellowtail",
+          family: "'Yellowtail', cursive",
+        },
+      ];
+
+      const signatureInput = document.getElementById("signatureInput");
+      const signatureColor = document.getElementById("signatureColor");
+      const colorPreview = document.getElementById("colorPreview");
+      const colorHex = document.getElementById("colorHex");
+      const signatureGrid = document.getElementById("signatureGrid");
+      const gridToggle = document.getElementById("gridToggle");
+      const listToggle = document.getElementById("listTog;gle");
+      const clearBtn = document.getElementById("clearBtn");
+      const colorPickerWrapper = document.getElementById("colorPickerWrapper");
+      const previewSizeSelect = document.getElementById("previewSizeSelect");
+
+      let currentPreviewSize = 52;
+
+      function renderCards() {
+        const textValue = signatureInput.value;
+        const chosenColor = signatureColor.value;
+        const scrollPos = window.scrollY;
+        signatureGrid.innerHTML = "";
+
+        signatureFonts.forEach((font) => {
+            const card = document.createElement("div");
+            card.className = "signature-card";
+
+            const cardHeader = document.createElement("div");
+            cardHeader.className = "card-header";
+            const fontNameSpan = document.createElement("span");
+            fontNameSpan.className = "font-name";
+            fontNameSpan.textContent = font.name;
+            cardHeader.appendChild(fontNameSpan);
+
+            const previewBox = document.createElement("div");
+            previewBox.className = "preview-box";
+            const previewText = document.createElement("div");
+            previewText.className = "signature-preview";
+            previewText.style.fontFamily = font.family;
+            previewText.style.color = chosenColor;
+            previewText.style.fontSize = currentPreviewSize + "px";
+            previewText.textContent = textValue || "Type Here";
+            previewBox.appendChild(previewText);
+
+            const actions = document.createElement("div");
+            actions.className = "card-actions";
+
+            const downloadBtn = document.createElement("button");
+            downloadBtn.className = "download-btn";
+            downloadBtn.textContent = "Download PNG";
+            downloadBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                downloadSignaturePng(
+                    textValue || "Type Here",
+                    font.family,
+                    chosenColor
+                );
+            });
+        })
+      }
+    </script>
+  </body>
 </html>
